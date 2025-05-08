@@ -1,0 +1,23 @@
+{
+    "name": "com.volorf.volumeui",
+    "version": "0.1.0",
+    "displayName": "Volume UI",
+    "description": "Volumetric UI.",
+    "unity": "2022.3",
+    "unityRelease": "40f1",
+    "hideInEditor": "false",
+    "dependencies": {},
+    "keywords": [
+      "Prototypes",
+      "Volumetric",
+      "GUI",
+      "UI",
+      "Spatial",
+      "3D"
+    ],
+    "author": {
+      "name": "Oleg Frolov",
+      "email": "olegfrolovdesign@gmail.com",
+      "url": "https://www.olegfrolov.design"
+    }
+  }
