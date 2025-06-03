@@ -4,30 +4,42 @@ using UnityEngine.Events;
 
 namespace VolumeUI
 {
-    [ExecuteAlways]
-    [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter), typeof(BoxCollider))]
+    // [RequireComponent(typeof(BoxCollider))]
     public class Toggle : MonoBehaviour
     {
         public bool isOn;
         
         [Header("Animation")]
-        public float duration;
-        public AnimationCurve curve;
+        [SerializeField] float duration;
+        [SerializeField] AnimationCurve curve;
         
         [Header("Events")]
         public UnityEvent<bool> onValueChanged;
 
-        MeshRenderer _meshRenderer;
+        [Header("Elements")]
+        [SerializeField] MeshRenderer _meshRenderer;
+        
         MaterialPropertyBlock _mpb;
         Coroutine _animateCoroutine;
         
         float _currentValue;
 
+        
+        void Start()
+        {
+            _currentValue = isOn ? 1f : 0f;
+            Init();
+        }
+
+        void Init()
+        {
+            _mpb ??= new MaterialPropertyBlock();
+        }
+
         void OnValidate()
         {   
             if (!enabled) return;
-            _meshRenderer ??= GetComponent<MeshRenderer>();
-            _mpb ??= new MaterialPropertyBlock();
+            Init();
             IsOn(isOn);
         }
         
@@ -39,7 +51,9 @@ namespace VolumeUI
             }
 
             _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f));
-            onValueChanged?.Invoke(value);
+            
+            if (value == isOn) return;
+            // onValueChanged?.Invoke(value);
         }
         
         IEnumerator Animate(float target)
