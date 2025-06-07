@@ -7,42 +7,58 @@ namespace Volorf.VolumeUI
     public class ToggleGroup : MonoBehaviour
     {
         [SerializeField] bool _allowSwitchOff;
-        [SerializeField] List<ITogglable> _toggles = new List<ITogglable>();
+        [SerializeField] List<Toggle> _toggles = new ();
 
         void Start()
         {
-            AddTogglables();
+            SetGroupProcessing();
         }
 
-        public void AddToggle(ITogglable togglable)
+        void SetGroupProcessing()
         {
-            if (togglable == null || _toggles.Contains(togglable)) return;
-            _toggles.Add(togglable);
+            foreach (Toggle t in _toggles)
+            {
+                t.processInToggleGroup = ProcessToggle;
+            }
         }
 
-        void AddTogglables()
+        public void RegisterToggle(Toggle toggle)
         {
-            _toggles.Clear();
-            _toggles.AddRange(GetComponentsInChildren<ITogglable>());
+            if (toggle != null && !_toggles.Contains(toggle))
+            {
+                toggle.processInToggleGroup = ProcessToggle;
+                _toggles.Add(toggle);
+            }
         }
         
-        void ProcessToggle(ITogglable togglable, bool isOn)
+        public void UnregisterToggle(Toggle toggle)
         {
-            if (togglable == null) return;
-
-            if (!isOn && !_allowSwitchOff)
+            if (toggle != null && _toggles.Contains(toggle))
             {
-                togglable.IsOn(true);
-                return;
+                toggle.processInToggleGroup = null;
+                _toggles.Remove(toggle);
             }
+        }
 
-            foreach (var toggle in _toggles)
+        void ProcessToggle(Toggle toggle)
+        {
+            print("Processing toggle: " + toggle.name);
+            foreach (Toggle t in _toggles)
             {
-                if (toggle == togglable) continue;
-                toggle.IsOn(false);
+                if (t != toggle)
+                {
+                    t.IsOn(false, notify: false);
+                    continue;
+                }
+                
+                if (!_allowSwitchOff)
+                {
+                    if (!t.isOn)
+                    {
+                        t.IsOn(true, notify: true, processInGroup: false);
+                    }
+                }
             }
-
-            togglable.IsOn(isOn);
         }
     }
 }

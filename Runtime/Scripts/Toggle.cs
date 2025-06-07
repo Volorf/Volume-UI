@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Volorf.VolumeUI
 {
     // [RequireComponent(typeof(BoxCollider))]
-    public class Toggle : MonoBehaviour, ITogglable
+    public class Toggle : MonoBehaviour
     {
         public bool isOn;
         
@@ -24,7 +25,7 @@ namespace Volorf.VolumeUI
         Coroutine _animateCoroutine;
         float _currentValue;
         
-        public event Action<(ITogglable, bool)> onToggleUpdated;
+        public Action<Toggle> processInToggleGroup; 
 
         void Init()
         {
@@ -44,9 +45,11 @@ namespace Volorf.VolumeUI
             Init();
         }
         
-        public void IsOn(bool value)
+        public void IsOn(bool value, bool notify = true, bool processInGroup = true)
         {
-            isOn = value;
+            if (value != isOn)
+                isOn = value;
+            
             
             if (_animateCoroutine != null)
             {
@@ -54,9 +57,12 @@ namespace Volorf.VolumeUI
             }
 
             _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f));
+
+            if (notify)
+                onValueChanged?.Invoke(value);
             
-            if (value == isOn) return;
-            onValueChanged?.Invoke(value);
+            if (processInGroup)
+                processInToggleGroup?.Invoke(this);
         }
         
         IEnumerator Animate(float target)
