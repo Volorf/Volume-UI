@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Volorf.VolumeUI
 {
     public class ToggleGroup : MonoBehaviour
     {
-        [SerializeField] bool _allowSwitchOff;
+        public bool allowSwitchOff;
         [SerializeField] List<Toggle> _toggles = new ();
 
         void Start()
@@ -18,7 +19,7 @@ namespace Volorf.VolumeUI
         {
             foreach (Toggle t in _toggles)
             {
-                t.processInToggleGroup = ProcessToggle;
+                t.SetToggleGroup(this);
             }
         }
 
@@ -26,7 +27,7 @@ namespace Volorf.VolumeUI
         {
             if (toggle != null && !_toggles.Contains(toggle))
             {
-                toggle.processInToggleGroup = ProcessToggle;
+                toggle.SetToggleGroup(this);
                 _toggles.Add(toggle);
             }
         }
@@ -35,28 +36,25 @@ namespace Volorf.VolumeUI
         {
             if (toggle != null && _toggles.Contains(toggle))
             {
-                toggle.processInToggleGroup = null;
+                toggle.SetToggleGroup(null);
                 _toggles.Remove(toggle);
             }
         }
 
-        void ProcessToggle(Toggle toggle)
+        public void ProcessToggle(Toggle toggle)
         {
             print("Processing toggle: " + toggle.name);
             foreach (Toggle t in _toggles)
             {
                 if (t != toggle)
                 {
-                    t.IsOn(false, notify: false);
+                    t.IsOn(false, notify: true, processInGroup: false);
                     continue;
                 }
                 
-                if (!_allowSwitchOff)
+                if (!allowSwitchOff && !toggle.isOn)
                 {
-                    if (!t.isOn)
-                    {
-                        t.IsOn(true, notify: true, processInGroup: false);
-                    }
+                    toggle.IsOn(true, notify: true, processInGroup: false);
                 }
             }
         }

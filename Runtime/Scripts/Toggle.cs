@@ -25,7 +25,7 @@ namespace Volorf.VolumeUI
         Coroutine _animateCoroutine;
         float _currentValue;
         
-        public Action<Toggle> processInToggleGroup; 
+        private ToggleGroup _toggleGroup; 
 
         void Init()
         {
@@ -47,9 +47,7 @@ namespace Volorf.VolumeUI
         
         public void IsOn(bool value, bool notify = true, bool processInGroup = true)
         {
-            if (value != isOn)
-                isOn = value;
-            
+            isOn = value;
             
             if (_animateCoroutine != null)
             {
@@ -60,9 +58,16 @@ namespace Volorf.VolumeUI
 
             if (notify)
                 onValueChanged?.Invoke(value);
-            
-            if (processInGroup)
-                processInToggleGroup?.Invoke(this);
+
+            if (_toggleGroup != null && processInGroup)
+            {
+                _toggleGroup.ProcessToggle(this);
+            }
+        }
+        
+        public void SetToggleGroup(ToggleGroup toggleGroup)
+        {
+            _toggleGroup = toggleGroup;
         }
         
         IEnumerator Animate(float target)
