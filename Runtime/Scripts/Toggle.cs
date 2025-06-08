@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 namespace Volorf.VolumeUI
 {
     // [RequireComponent(typeof(BoxCollider))]
-    public class Toggle : MonoBehaviour
+    public class Toggle : VolumeUIBehaviour
     {
         public bool isOn;
         
@@ -24,6 +24,7 @@ namespace Volorf.VolumeUI
         MaterialPropertyBlock _mpb;
         Coroutine _animateCoroutine;
         float _currentValue;
+        // bool _prevValue;
         
         private ToggleGroup _toggleGroup; 
 
@@ -44,7 +45,13 @@ namespace Volorf.VolumeUI
             _currentValue = isOn ? 1f : 0f;
             Init();
         }
-        
+
+        protected override void Pressed()
+        {
+            base.Pressed();
+            IsOn(!isOn);
+        }
+
         public void IsOn(bool value, bool notify = true, bool processInGroup = true)
         {
             isOn = value;
@@ -53,8 +60,11 @@ namespace Volorf.VolumeUI
             {
                 StopCoroutine(_animateCoroutine);
             }
-
-            _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f));
+            
+            if (Application.isPlaying) 
+                _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f));
+            else
+                SetToggleValue(value ? 1f : 0f);
 
             if (notify)
                 onValueChanged?.Invoke(value);
@@ -63,6 +73,8 @@ namespace Volorf.VolumeUI
             {
                 _toggleGroup.ProcessToggle(this);
             }
+            
+            
         }
         
         public void SetToggleGroup(ToggleGroup toggleGroup)
@@ -80,10 +92,16 @@ namespace Volorf.VolumeUI
                 float t = Mathf.Clamp01(time / duration);
                 t = curve.Evaluate(t);
                 _currentValue = Mathf.Lerp(capturedValue, target, t);
-                _mpb.SetFloat("_Value", _currentValue);
-                _meshRenderer.SetPropertyBlock(_mpb);
+                SetToggleValue(_currentValue);
                 yield return null;
             }
+        }
+        
+        void SetToggleValue(float value)
+        {
+            _mpb ??= new MaterialPropertyBlock();
+            _mpb.SetFloat("_Value", value);
+            _meshRenderer.SetPropertyBlock(_mpb);
         }
     }
 }
