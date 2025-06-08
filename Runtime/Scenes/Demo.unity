@@ -168,8 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9974dbfc41b474e22a3f928ce0c88f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allowSwitchOff: 0
-  _toggles: []
+  allowSwitchOff: 0
+  _toggles:
+  - {fileID: 960459295}
+  - {fileID: 179624529}
 --- !u!1 &179624524
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6448e13b8ea4022b994a4e43b13a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 0
+  isOn: 1
   duration: 1
   curve:
     serializedVersion: 2
