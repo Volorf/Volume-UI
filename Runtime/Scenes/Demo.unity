@@ -843,7 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6448e13b8ea4022b994a4e43b13a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 1
+  isOn: 0
   duration: 0.5
   curve:
     serializedVersion: 2
