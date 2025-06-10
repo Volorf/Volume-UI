@@ -46,7 +46,7 @@ namespace Volorf.VolumeUI
             Init();
         }
 
-        protected override void Pressed()
+        public override void Pressed()
         {
             base.Pressed();
             IsOn(!isOn);

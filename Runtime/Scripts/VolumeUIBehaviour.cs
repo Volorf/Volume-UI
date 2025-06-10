@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Volorf.VolumeUI
 {
-    public class VolumeUIBehaviour : MonoBehaviour
+    public class VolumeUIBehaviour : MonoBehaviour, IInteractable
     {
         bool _cooledDown = false;
         float _cooldownTime = 0.25f;
@@ -24,12 +24,12 @@ namespace Volorf.VolumeUI
             Released();
         }
 
-        protected virtual void Pressed()
+        public virtual void Pressed()
         {
             print("Pressed on: " + gameObject.name);
         }
 
-        protected virtual void Released()
+        public virtual void Released()
         {
             
         }
