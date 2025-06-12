@@ -46,13 +46,13 @@ namespace Volorf.VolumeUI
             {
                 if (t != toggle)
                 {
-                    t.IsOn(false, notify: true, processInGroup: false);
+                    t.SetState(false, notify: true, processInGroup: false);
                     continue;
                 }
                 
-                if (!allowSwitchOff && !toggle.isOn)
+                if (!allowSwitchOff && !toggle.IsOn)
                 {
-                    toggle.IsOn(true, notify: true, processInGroup: false);
+                    toggle.SetState(true, notify: true, processInGroup: false);
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace Volorf.VolumeUI
     // [RequireComponent(typeof(BoxCollider))]
     public class Toggle : VolumeUIBehaviour
     {
-        public bool isOn;
+        [SerializeField] bool _isOn;
         
         [Header("Animation")]
         [SerializeField] float duration;
@@ -24,9 +24,14 @@ namespace Volorf.VolumeUI
         MaterialPropertyBlock _mpb;
         Coroutine _animateCoroutine;
         float _currentValue;
-        // bool _prevValue;
         
-        private ToggleGroup _toggleGroup; 
+        private ToggleGroup _toggleGroup;
+
+        public bool IsOn
+        {
+            get => _isOn;
+            set => SetState(value);
+        }
 
         void Init()
         {
@@ -37,24 +42,24 @@ namespace Volorf.VolumeUI
         {   
             if (!enabled) return;
             Init();
-            IsOn(isOn);
+            IsOn = _isOn;
         }
         
         void Start()
         {
-            _currentValue = isOn ? 1f : 0f;
+            _currentValue = _isOn ? 1f : 0f;
             Init();
         }
 
         public override void Pressed()
         {
             base.Pressed();
-            IsOn(!isOn);
+            SetState(!_isOn);
         }
 
-        public void IsOn(bool value, bool notify = true, bool processInGroup = true)
+        public void SetState(bool value, bool notify = true, bool processInGroup = true)
         {
-            isOn = value;
+            _isOn = value;
             
             if (_animateCoroutine != null)
             {
