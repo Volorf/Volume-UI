@@ -7,6 +7,7 @@ public class WalkingToggle : MonoBehaviour
     [SerializeField] float _movingSpeed = 1f;
     [SerializeField] AnimationCurve _movingCurve;
     [SerializeField] Toggle _toggle;
+    [SerializeField] bool _backAndForth;
     float _stepTimer;
     Vector3 _startPosition;
     Vector3 _targetPosition;
@@ -24,17 +25,30 @@ public class WalkingToggle : MonoBehaviour
             _toggle.IsOn = !_toggle.IsOn;
             _stepTimer = 0f;
             _startPosition = transform.position;
-            _targetPosition = _startPosition - transform.right * _movingSpeed;
+            _targetPosition = _startPosition + transform.right  * _movingSpeed * (_toggle.IsOn ? -1f : 1f);
         }
         
-        if (_toggle.IsOn)
+        if (_backAndForth)
         {
-            float f = _stepTimer / _stepInterval;
-            f = _movingCurve.Evaluate(f);
-            Vector3 pos = Vector3.Lerp(_startPosition, _targetPosition, f);
-            transform.position = pos;
+            Move();
+        }
+        else
+        {
+            if (_toggle.IsOn)
+            {
+                Move();
+            }
         }
         
         _stepTimer += Time.deltaTime;
     }
+
+    void Move()
+    {
+        float f = _stepTimer / _stepInterval;
+        f = _movingCurve.Evaluate(f);
+        Vector3 pos = Vector3.Lerp(_startPosition, _targetPosition, f);
+        transform.position = pos;
+    }
+    
 }
