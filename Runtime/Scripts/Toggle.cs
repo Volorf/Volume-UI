@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Volorf.VolumeUI
 {
@@ -14,6 +13,9 @@ namespace Volorf.VolumeUI
         [Header("Animation")]
         [SerializeField] float duration;
         [SerializeField] AnimationCurve curve;
+        
+        [Header("Style")] 
+        [SerializeField] Color _bodyColor;
         
         [Header("Elements")]
         [SerializeField] MeshRenderer _meshRenderer;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Volorf.VolumeUI;
 
@@ -8,6 +9,9 @@ public class WalkingToggle : MonoBehaviour
     [SerializeField] AnimationCurve _movingCurve;
     [SerializeField] Toggle _toggle;
     [SerializeField] bool _backAndForth;
+    [SerializeField] bool _switchWithColors;
+    [SerializeField] List<Color> _bgColors = new();
+    
     float _stepTimer;
     Vector3 _startPosition;
     Vector3 _targetPosition;
