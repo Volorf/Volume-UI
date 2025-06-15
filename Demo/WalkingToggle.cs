@@ -8,8 +8,8 @@ public class WalkingToggle : MonoBehaviour
     [SerializeField] float _movingSpeed = 1f;
     [SerializeField] AnimationCurve _movingCurve;
     [SerializeField] Toggle _toggle;
-    [SerializeField] bool _backAndForth;
-    [SerializeField] bool _switchWithColors;
+    public bool backAndForth;
+    public bool switchWithColors;
     [SerializeField] List<Color> _bgColors = new();
     [SerializeField] MeshRenderer _floor;
     [SerializeField] bool _updateFloorColor;
@@ -30,7 +30,7 @@ public class WalkingToggle : MonoBehaviour
         if (_stepTimer > _stepInterval)
         {
             _toggle.IsOn = !_toggle.IsOn;
-            if (_switchWithColors && _toggle.IsOn)
+            if (switchWithColors && _toggle.IsOn)
             {
                 _toggle.onColor = GetNextColor();
                 if (_floor != null && _updateFloorColor)
@@ -41,7 +41,7 @@ public class WalkingToggle : MonoBehaviour
             _targetPosition = _startPosition + transform.right  * _movingSpeed * (_toggle.IsOn ? -1f : 1f);
         }
         
-        if (_backAndForth)
+        if (backAndForth)
         {
             Move();
         }
