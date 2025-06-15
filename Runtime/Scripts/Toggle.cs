@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Volorf.VolumeUI
 {
@@ -15,7 +16,9 @@ namespace Volorf.VolumeUI
         [SerializeField] AnimationCurve curve;
         
         [Header("Style")] 
-        [SerializeField] Color _bodyColor;
+        public Color bodyColor;
+        public Color onColor;
+        public Color offColor;
         
         [Header("Elements")]
         [SerializeField] MeshRenderer _meshRenderer;
@@ -38,6 +41,14 @@ namespace Volorf.VolumeUI
         void Init()
         {
             _mpb ??= new MaterialPropertyBlock();
+            SetColorsToMpb(_mpb);
+        }
+        
+        void SetColorsToMpb(MaterialPropertyBlock mpb) 
+        {
+            mpb.SetColor("_Base", bodyColor);
+            mpb.SetColor("_On", onColor);
+            mpb.SetColor("_Off", offColor);
         }
 
         void OnValidate()
@@ -80,8 +91,6 @@ namespace Volorf.VolumeUI
             {
                 _toggleGroup.ProcessToggle(this);
             }
-            
-            
         }
         
         public void SetToggleGroup(ToggleGroup toggleGroup)
@@ -108,6 +117,7 @@ namespace Volorf.VolumeUI
         {
             _mpb ??= new MaterialPropertyBlock();
             _mpb.SetFloat("_Value", value);
+            SetColorsToMpb(_mpb);
             _meshRenderer.SetPropertyBlock(_mpb);
         }
     }

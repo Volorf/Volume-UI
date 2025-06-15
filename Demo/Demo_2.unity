@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.87375396, g: 0.8928253, b: 0.990566, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -195,12 +195,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   _toggle: {fileID: 1475971948}
   _backAndForth: 1
-  _switchWithColors: 0
+  _switchWithColors: 1
   _bgColors:
-  - {r: 1, g: 0.25, b: 0.25, a: 1}
-  - {r: 0.27588114, g: 0.8301887, b: 0.246707, a: 1}
-  - {r: 0.2971698, g: 0.566588, b: 1, a: 1}
-  - {r: 0.83620894, g: 0.2980392, b: 1, a: 1}
+  - {r: 0.6313726, g: 0.12941176, b: 0.12941176, a: 1}
+  - {r: 0.6313726, g: 0.37410784, b: 0.12941176, a: 1}
+  - {r: 0.6313726, g: 0.53949296, b: 0.12941176, a: 1}
+  - {r: 0.44266438, g: 0.6320754, b: 0.12820399, a: 1}
+  - {r: 0.12941176, g: 0.47241834, b: 0.6313726, a: 1}
+  - {r: 0.12941176, g: 0.17124179, b: 0.6313726, a: 1}
+  - {r: 0.337618, g: 0.12941176, b: 0.6313726, a: 1}
+  _floor: {fileID: 542228145}
+  _updateFloorColor: 0
 --- !u!1 &542228143
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +312,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &868301324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 868301325}
+  - component: {fileID: 868301326}
+  m_Layer: 0
+  m_Name: PP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &868301325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868301324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &868301326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868301324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: c99e8013555d448e7aae39ef827bfa8b, type: 2}
 --- !u!1 &1389889530
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,14 +503,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394977621}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.35355338, y: 0.35355338, z: 0.1464466, w: 0.8535535}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.056, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1743109459}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -45, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &1475971946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -523,7 +577,7 @@ PrefabInstance:
     - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
       propertyPath: _isOn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
@@ -533,17 +587,17 @@ PrefabInstance:
     - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
       propertyPath: onColor.b
-      value: 0.13955145
+      value: 0.6313726
       objectReference: {fileID: 0}
     - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
       propertyPath: onColor.g
-      value: 0.6037736
+      value: 0.12941176
       objectReference: {fileID: 0}
     - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
       propertyPath: onColor.r
-      value: 0.36889932
+      value: 0.337618
       objectReference: {fileID: 0}
     - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
@@ -729,8 +783,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -758,3 +812,4 @@ SceneRoots:
   - {fileID: 1394977622}
   - {fileID: 542228147}
   - {fileID: 107953667}
+  - {fileID: 868301325}

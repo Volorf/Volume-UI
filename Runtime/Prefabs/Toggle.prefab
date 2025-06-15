@@ -73,6 +73,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  bodyColor: {r: 0, g: 0, b: 0, a: 0}
+  onColor: {r: 0, g: 0, b: 0, a: 0}
+  offColor: {r: 0, g: 0, b: 0, a: 0}
   _meshRenderer: {fileID: 303760213038180076}
   onValueChanged:
     m_PersistentCalls:
