@@ -97,7 +97,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: e880d03502dfa499dacb39b8b80b732c,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -476,7 +477,7 @@ MonoBehaviour:
   _width: 20
   _height: 10
   _xOffset: 0.096
-  _yOffset: 0.176
+  _yOffset: 0.136
 --- !u!1 &1743109456
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +540,7 @@ Camera:
   far clip plane: 1000
   field of view: 30
   orthographic: 1
-  orthographic size: 0.16
+  orthographic size: 0.13
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
