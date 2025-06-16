@@ -20,6 +20,7 @@ public class WalkingToggles : MonoBehaviour
             {
                 Vector3 position = new Vector3(i * _yOffset - _width / 2f * _yOffset, 0, j * _xOffset - _height / 2f * _xOffset);
                 GameObject toggleObj = Instantiate(_walkingTogglePrefab, position, Quaternion.identity);
+                toggleObj.GetComponent<WalkingToggle>().currentColor = j;
                 toggleObj.name = $"WalkingToggle_{i}_{j}";
             }
         }

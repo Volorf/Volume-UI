@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkingTogglePrefab: {fileID: 6732668185716309503, guid: caad440eaad0d4452a6592f8f6c377c5,
     type: 3}
-  _width: 20
+  _width: 30
   _height: 10
   _xOffset: 0.096
   _yOffset: 0.136

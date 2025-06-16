@@ -84,6 +84,7 @@ MonoBehaviour:
   - {r: 0.337618, g: 0.12941176, b: 0.6313726, a: 1}
   _floor: {fileID: 0}
   _updateFloorColor: 0
+  currentColor: 0
 --- !u!1001 &4695734960975897931
 PrefabInstance:
   m_ObjectHideFlags: 0

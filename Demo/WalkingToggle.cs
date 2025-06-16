@@ -13,15 +13,15 @@ public class WalkingToggle : MonoBehaviour
     [SerializeField] List<Color> _bgColors = new();
     [SerializeField] MeshRenderer _floor;
     [SerializeField] bool _updateFloorColor;
+    public int currentColor;
     
     float _stepTimer;
     Vector3 _startPosition;
     Vector3 _targetPosition;
-    int _colorCounter;
+    
     
     void Start()
     {
-        _colorCounter = 0;
     }
 
     // Update is called once per frame
@@ -66,11 +66,9 @@ public class WalkingToggle : MonoBehaviour
 
     Color GetNextColor()
     {
-        if (_colorCounter > _bgColors.Count - 1)
-            _colorCounter = 0;
-        
-        Color color = _bgColors[_colorCounter];
-        _colorCounter++;
+        currentColor %= _bgColors.Count;
+        Color color = _bgColors[currentColor];
+        currentColor++;
         return color;
     }
 }
