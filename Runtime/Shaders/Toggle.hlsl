@@ -40,7 +40,7 @@ void TogglePressedOffset_float(
 {
     float factor = Value * Depth;
     float3 upOffset = Up.xyz * factor;
-    float3 pos = VertexColor.z > 0.99 ? ObjectPosition + upOffset : ObjectPosition;
+    float3 pos = VertexColor.z > 0.99 ? ObjectPosition - upOffset : ObjectPosition;
     Out = pos;
 }
 
