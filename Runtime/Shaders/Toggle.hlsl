@@ -10,7 +10,7 @@ void ToggleBgColor_float(
     out float4 Out) 
 {
     float4 activeBgColor = lerp(OffColor, OnColor, Value);
-    Out = VertexColor.x > 0.9 ? activeBgColor : BaseColor;
+    Out = VertexColor.x > 0.0 && VertexColor.x < 0.33 ? activeBgColor : BaseColor;
 }
 
 void ToggleVertexOffset_float(
@@ -25,8 +25,22 @@ void ToggleVertexOffset_float(
     float zFactor = Value > 0.5 ? (Value - 0.5) * 2.0 : 0.0;
     float3 posY = Right.xyz * -Length * yFactor;
     float3 posZ = Right.xyz * -Length * zFactor;
-    float3 pos = VertexColor.y > 0.9 ? ObjectPosition + posY : ObjectPosition;
-    pos = VertexColor.z > 0.9 ? pos + posZ : pos;
+    float3 pos = VertexColor.x > 0.64 && VertexColor.x < 0.66 ? ObjectPosition + posY : ObjectPosition;
+    pos = VertexColor.x > 0.97 && VertexColor.x < 0.99 ? pos + posZ : pos;
+    Out = pos;
+}
+
+void TogglePressedOffset_float(
+    float Value,
+    float Depth,
+    float4 Up,
+    float4 VertexColor,
+    float3 ObjectPosition,
+    out float3 Out)
+{
+    float factor = Value * Depth;
+    float3 upOffset = Up.xyz * factor;
+    float3 pos = VertexColor.z > 0.99 ? ObjectPosition + upOffset : ObjectPosition;
     Out = pos;
 }
 
