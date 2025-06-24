@@ -31,6 +31,7 @@ namespace Volorf.VolumeUI
         float _currentValue;
         
         private ToggleGroup _toggleGroup;
+        private bool _prevIsOn;
 
         public bool IsOn
         {
@@ -42,6 +43,7 @@ namespace Volorf.VolumeUI
         {
             _mpb ??= new MaterialPropertyBlock();
             SetColorsToMpb(_mpb);
+            _prevIsOn = _isOn;
         }
         
         void SetColorsToMpb(MaterialPropertyBlock mpb) 
@@ -68,6 +70,7 @@ namespace Volorf.VolumeUI
         {
             base.Pressed();
             SetState(!_isOn);
+            print(gameObject.name + ", isOS: " + _isOn);
         }
 
         public void SetState(bool value, bool notify = true, bool processInGroup = true)
@@ -76,21 +79,24 @@ namespace Volorf.VolumeUI
             
             if (_animateCoroutine != null)
             {
-                StopCoroutine(_animateCoroutine);
+                if (_isOn != _prevIsOn)
+                    StopCoroutine(_animateCoroutine);
             }
             
             if (Application.isPlaying) 
-                _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f));
+                _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f, _prevIsOn == _isOn ? duration / 2f : 0f));
             else
-                SetToggleValue(value ? 1f : 0f);
+                SetToggleValue(_isOn ? 1f : 0f);
 
-            if (notify)
-                onValueChanged?.Invoke(value);
+            if (notify && _prevIsOn != _isOn)
+                onValueChanged?.Invoke(_isOn);
 
             if (_toggleGroup != null && processInGroup)
             {
                 _toggleGroup.ProcessToggle(this);
             }
+            
+            _prevIsOn = _isOn;
         }
         
         public void SetToggleGroup(ToggleGroup toggleGroup)
@@ -98,8 +104,13 @@ namespace Volorf.VolumeUI
             _toggleGroup = toggleGroup;
         }
         
-        IEnumerator Animate(float target)
+        IEnumerator Animate(float target, float delay = 0f)
         {
+            if (delay > 0f)
+            {
+                yield return new WaitForSeconds(delay);
+            }
+            
             float time = 0f;
             float capturedValue = _currentValue;
             while (time < duration)

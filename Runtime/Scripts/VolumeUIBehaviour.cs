@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,12 +7,14 @@ namespace Volorf.VolumeUI
     {
         bool _cooledDown = false;
         float _cooldownTime = 0.25f;
+        bool _isPressed = false;
 
         void OnTriggerEnter(Collider other)
         {
             if (_cooledDown) return;
             if (other.gameObject.TryGetComponent(out VolumeUIInteractor _))
             {
+                _isPressed = true;
                 Pressed();
                 StopCoroutine(CoolDown());
             }
@@ -21,12 +22,16 @@ namespace Volorf.VolumeUI
         
         void OnTriggerExit(Collider other)
         {
-            Released();
+            if (!_isPressed) return;
+            if (other.gameObject.TryGetComponent(out VolumeUIInteractor _))
+            {
+                _isPressed = false;
+                Released();
+            }
         }
 
         public virtual void Pressed()
         {
-            print("Pressed on: " + gameObject.name);
         }
 
         public virtual void Released()

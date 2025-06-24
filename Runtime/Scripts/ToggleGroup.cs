@@ -20,6 +20,17 @@ namespace Volorf.VolumeUI
                 t.SetToggleGroup(this);
             }
         }
+        
+        public void CollectAllTogglesInChildren()
+        {
+            _toggles.Clear();
+            Toggle[] toggles = GetComponentsInChildren<Toggle>(true);
+            foreach (Toggle toggle in toggles)
+            {
+                _toggles.Add(toggle);
+                toggle.SetToggleGroup(this);
+            }
+        }
 
         public void RegisterToggle(Toggle toggle)
         {
@@ -41,7 +52,7 @@ namespace Volorf.VolumeUI
 
         public void ProcessToggle(Toggle toggle)
         {
-            print("Processing toggle: " + toggle.name);
+            // print("Processing toggle: " + toggle.name);
             foreach (Toggle t in _toggles)
             {
                 if (t != toggle)
