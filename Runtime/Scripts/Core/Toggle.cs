@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Volorf.VolumeUI
 {
@@ -29,6 +28,7 @@ namespace Volorf.VolumeUI
         MaterialPropertyBlock _mpb;
         Coroutine _animateCoroutine;
         float _currentValue;
+        bool _isOnOffAnimating;
         
         private ToggleGroup _toggleGroup;
         private bool _prevIsOn;
@@ -73,6 +73,12 @@ namespace Volorf.VolumeUI
             print(gameObject.name + ", isOS: " + _isOn);
         }
 
+        public override void Released()
+        {
+            base.Released();
+            pressFactor = 0f;
+        }
+
         public void SetState(bool value, bool notify = true, bool processInGroup = true)
         {
             _isOn = value;
@@ -106,6 +112,7 @@ namespace Volorf.VolumeUI
         
         IEnumerator Animate(float target, float delay = 0f)
         {
+            _isOnOffAnimating = true;
             if (delay > 0f)
             {
                 yield return new WaitForSeconds(delay);
@@ -119,17 +126,27 @@ namespace Volorf.VolumeUI
                 float t = Mathf.Clamp01(time / duration);
                 t = curve.Evaluate(t);
                 _currentValue = Mathf.Lerp(capturedValue, target, t);
-                SetToggleValue(_currentValue);
+                SetToggleValue(_currentValue, pressFactor);
                 yield return null;
             }
+            _isOnOffAnimating = false;
         }
         
-        void SetToggleValue(float value)
+        void SetToggleValue(float value, float pressFactor = 1f)
         {
             _mpb ??= new MaterialPropertyBlock();
             _mpb.SetFloat("_Value", value);
+            _mpb.SetFloat("_PressFactor", pressFactor);
             SetColorsToMpb(_mpb);
             _meshRenderer.SetPropertyBlock(_mpb);
+        }
+
+        void Update()
+        {
+            if (isPressed && !_isOnOffAnimating)
+            {
+                SetToggleValue(_currentValue, pressFactor);
+            }
         }
     }
 }

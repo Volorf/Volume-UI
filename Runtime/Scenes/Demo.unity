@@ -236,7 +236,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.1
+  orthographic size: 0.15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -708,6 +708,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5229593796668996476, guid: 687feb0d71c6f4fe481b33fc7da567b5,
+        type: 3}
+      propertyPath: _isOn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5448412402638749377, guid: 687feb0d71c6f4fe481b33fc7da567b5,
         type: 3}
       propertyPath: m_Name
@@ -751,7 +756,7 @@ GameObject:
   - component: {fileID: 1961372125}
   - component: {fileID: 1961372126}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
