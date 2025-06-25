@@ -22,11 +22,7 @@ namespace Volorf.VolumeUI
             Handles.color = Color.red;
             Handles.DrawLine(center, projectedPoint, 2f);
             Handles.SphereHandleCap(0, projectedPoint, Quaternion.identity, 0.005f, EventType.Repaint);
-            Handles.Label(projectedPoint + Vector3.up * 0.01f, $"Press Factor: {t.pressFactor:F2}", new GUIStyle { fontSize = 12, normal = new GUIStyleState { textColor = Color.white } });
-            
-            // Tap Direction
-            Handles.color = Color.green;
-            Handles.DrawLine(center, t.startTapPosition, 1f);
+            Handles.Label(projectedPoint + Vector3.up * 0.01f, $"Press Factor: {t.pressFactor:F2}");
         }
     }
 }

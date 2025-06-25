@@ -92,7 +92,7 @@ namespace Volorf.VolumeUI
             if (Application.isPlaying) 
                 _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f, _prevIsOn == _isOn ? duration / 2f : 0f));
             else
-                SetToggleValue(_isOn ? 1f : 0f);
+                SetToggleValue(_isOn ? 1f : 0f, 0f);
 
             if (notify && _prevIsOn != _isOn)
                 onValueChanged?.Invoke(_isOn);
@@ -132,11 +132,11 @@ namespace Volorf.VolumeUI
             _isOnOffAnimating = false;
         }
         
-        void SetToggleValue(float value, float pressFactor = 1f)
+        void SetToggleValue(float value, float pF)
         {
             _mpb ??= new MaterialPropertyBlock();
             _mpb.SetFloat("_Value", value);
-            _mpb.SetFloat("_PressFactor", pressFactor);
+            _mpb.SetFloat("_PressFactor", pF);
             SetColorsToMpb(_mpb);
             _meshRenderer.SetPropertyBlock(_mpb);
         }
