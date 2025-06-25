@@ -7,6 +7,7 @@ namespace Volorf.VolumeUI
     {
         public bool allowSwitchOff;
         [SerializeField] List<Toggle> _toggles = new ();
+        Toggle _currentToggle;
 
         void Start()
         {
@@ -52,20 +53,28 @@ namespace Volorf.VolumeUI
 
         public void ProcessToggle(Toggle toggle)
         {
+            _currentToggle = toggle;
             // print("Processing toggle: " + toggle.name);
             foreach (Toggle t in _toggles)
             {
-                if (t != toggle)
-                {
-                    t.SetState(false, notify: true, processInGroup: false);
-                    continue;
-                }
-                
                 if (!allowSwitchOff && !toggle.IsOn)
                 {
                     toggle.SetState(true, notify: true, processInGroup: false);
+                    return;
                 }
+                
+                if (t != toggle)
+                {
+                    t.SetState(false, notify: true, processInGroup: false);
+                }
+                
+                
             }
+        }
+
+        public bool IsCurrent(Toggle toggle)
+        {
+            return _currentToggle == toggle;
         }
     }
 }

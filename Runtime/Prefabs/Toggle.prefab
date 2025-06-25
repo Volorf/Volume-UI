@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressFactor: 0
+  interactionMode: 0
   startTapPosition: {x: 0, y: 0, z: 0}
   _isOn: 0
   duration: 1

@@ -4,9 +4,16 @@ using UnityEngine;
 
 namespace Volorf.VolumeUI
 {
+    public enum InteractionMode
+    {
+        Touch,
+        Pointer
+    }
+    
     public class VolumeUIBehaviour : MonoBehaviour, IInteractable
     {
         public float pressFactor = 0f;
+        public InteractionMode interactionMode = InteractionMode.Touch;
         
         bool _cooledDown = false;
         float _cooldownTime = 0.25f;
@@ -20,12 +27,10 @@ namespace Volorf.VolumeUI
             if (_cooledDown) return;
             if (other.gameObject.TryGetComponent(out VolumeUIInteractor _))
             {
-                isPressed = true;
+                Pressed();
                 startTapPosition = other.ClosestPoint(transform.position);
                 Vector3 tapDirection = startTapPosition - transform.position;
                 _startDot = Vector3.Dot(transform.forward, tapDirection);
-                
-                Pressed();
                 StopCoroutine(CoolDown());
             }
         }
@@ -48,18 +53,18 @@ namespace Volorf.VolumeUI
             if (!isPressed) return;
             if (other.gameObject.TryGetComponent(out VolumeUIInteractor _))
             {
-                isPressed = false;
                 Released();
             }
         }
 
         public virtual void Pressed()
         {
+            isPressed = true;
         }
 
         public virtual void Released()
         {
-            
+            isPressed = false;
         }
         
         IEnumerator CoolDown()

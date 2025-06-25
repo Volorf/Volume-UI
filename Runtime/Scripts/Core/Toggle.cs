@@ -43,7 +43,7 @@ namespace Volorf.VolumeUI
         {
             _mpb ??= new MaterialPropertyBlock();
             SetColorsToMpb(_mpb);
-            _prevIsOn = _isOn;
+            _prevIsOn = !_isOn;
         }
         
         void SetColorsToMpb(MaterialPropertyBlock mpb) 
@@ -76,7 +76,8 @@ namespace Volorf.VolumeUI
         public override void Released()
         {
             base.Released();
-            pressFactor = 0f;
+            if (interactionMode == InteractionMode.Touch)
+                pressFactor = 0f;
         }
 
         public void SetState(bool value, bool notify = true, bool processInGroup = true)
@@ -89,10 +90,18 @@ namespace Volorf.VolumeUI
                     StopCoroutine(_animateCoroutine);
             }
             
-            if (Application.isPlaying) 
-                _animateCoroutine = StartCoroutine(Animate(value ? 1f : 0f, _prevIsOn == _isOn ? duration / 2f : 0f));
+            
+
+            if (Application.isPlaying)
+            {
+                bool animatePF = interactionMode == InteractionMode.Pointer && isPressed;
+                _animateCoroutine = StartCoroutine(AnimateOnOff(value ? 1f : 0f, animatePF, _prevIsOn == _isOn, _prevIsOn == _isOn ? duration / 2f : 0f));
+            }
             else
+            {
                 SetToggleValue(_isOn ? 1f : 0f, 0f);
+            }
+                
 
             if (notify && _prevIsOn != _isOn)
                 onValueChanged?.Invoke(_isOn);
@@ -101,7 +110,6 @@ namespace Volorf.VolumeUI
             {
                 _toggleGroup.ProcessToggle(this);
             }
-            
             _prevIsOn = _isOn;
         }
         
@@ -110,7 +118,7 @@ namespace Volorf.VolumeUI
             _toggleGroup = toggleGroup;
         }
         
-        IEnumerator Animate(float target, float delay = 0f)
+        IEnumerator AnimateOnOff(float target, bool animatePressFactor, bool isForcedAnimation = false, float delay = 0f)
         {
             _isOnOffAnimating = true;
             if (delay > 0f)
@@ -126,6 +134,10 @@ namespace Volorf.VolumeUI
                 float t = Mathf.Clamp01(time / duration);
                 t = curve.Evaluate(t);
                 _currentValue = Mathf.Lerp(capturedValue, target, t);
+                if (animatePressFactor)
+                {
+                    pressFactor = Mathf.Sin(Mathf.PI * t);
+                }
                 SetToggleValue(_currentValue, pressFactor);
                 yield return null;
             }

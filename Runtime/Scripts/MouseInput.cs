@@ -13,6 +13,8 @@ namespace Volorf.VolumeUI
                 {
                     if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
                     {
+                        Toggle toggle = interactable as Toggle;
+                        if (toggle) toggle.interactionMode = InteractionMode.Pointer;
                         interactable.Pressed();
                     }
                 }
