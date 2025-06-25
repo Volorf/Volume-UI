@@ -6,13 +6,13 @@ namespace Volorf.VolumeUI
 {
     public class VolumeUIBehaviour : MonoBehaviour, IInteractable
     {
-        protected float pressFactor = 0f;
+        public float pressFactor = 0f;
         
         bool _cooledDown = false;
         float _cooldownTime = 0.25f;
         protected bool isPressed = false;
         
-        Vector3 _startTapPosition;
+        public Vector3 startTapPosition;
         float _startDot;
 
         void OnTriggerEnter(Collider other)
@@ -21,8 +21,8 @@ namespace Volorf.VolumeUI
             if (other.gameObject.TryGetComponent(out VolumeUIInteractor _))
             {
                 isPressed = true;
-                _startTapPosition = other.transform.position;
-                Vector3 tapDirection = _startTapPosition - transform.position;
+                startTapPosition = other.ClosestPoint(transform.position);
+                Vector3 tapDirection = startTapPosition - transform.position;
                 _startDot = Vector3.Dot(transform.forward, tapDirection);
                 
                 Pressed();
@@ -36,7 +36,8 @@ namespace Volorf.VolumeUI
             
             if (other.gameObject.TryGetComponent(out VolumeUIInteractor _))
             {
-                Vector3 tapDirection = other.transform.position - transform.position;
+                Vector3 tapPosition = other.ClosestPoint(transform.position);
+                Vector3 tapDirection = tapPosition - transform.position;
                 float dot = Vector3.Dot(transform.forward, tapDirection);
                 pressFactor = isPressed ? 1f - Mathf.Clamp01(dot / _startDot) : 0f;
             }
