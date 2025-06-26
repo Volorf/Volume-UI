@@ -18,14 +18,14 @@ void ToggleVertexOffset_float(
     float Length,
     float4 Right,
     float4 VertexColor,
-    float3 ObjectPosition,
+    // float3 ObjectPosition,
     out float3 Out)
 {
     float yFactor = Value < 0.5 ? Value * 2.0 : 1.0;
     float zFactor = Value > 0.5 ? (Value - 0.5) * 2.0 : 0.0;
     float3 posY = Right.xyz * -Length * yFactor;
     float3 posZ = Right.xyz * -Length * zFactor;
-    float3 pos = VertexColor.x > 0.64 && VertexColor.x < 0.66 ? ObjectPosition + posY : ObjectPosition;
+    float3 pos = VertexColor.x > 0.64 && VertexColor.x < 0.66 ? posY : float3(0.0, 0.0, 0.0);
     pos = VertexColor.x > 0.97 && VertexColor.x < 0.99 ? pos + posZ : pos;
     Out = pos;
 }

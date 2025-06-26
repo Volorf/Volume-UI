@@ -89,8 +89,6 @@ namespace Volorf.VolumeUI
                 if (_isOn != _prevIsOn)
                     StopCoroutine(_animateCoroutine);
             }
-            
-            
 
             if (Application.isPlaying)
             {
@@ -136,7 +134,7 @@ namespace Volorf.VolumeUI
                 _currentValue = Mathf.Lerp(capturedValue, target, t);
                 if (animatePressFactor)
                 {
-                    pressFactor = Mathf.Sin(Mathf.PI * t);
+                    pressFactor = isForcedAnimation ? 1f - _currentValue : Mathf.Sin(Mathf.PI * _currentValue);
                 }
                 SetToggleValue(_currentValue, pressFactor);
                 yield return null;
