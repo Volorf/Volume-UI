@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -76,8 +75,9 @@ namespace Volorf.VolumeUI
         public override void Released()
         {
             base.Released();
-            if (interactionMode == InteractionMode.Touch)
-                pressFactor = 0f;
+            if (interactionMode != InteractionMode.Touch) return;
+            pressFactor = 0f;
+            SetToggleValue(_isOn ? 1f : 0f, pressFactor);
         }
 
         public void SetState(bool value, bool notify = true, bool processInGroup = true)
@@ -92,8 +92,8 @@ namespace Volorf.VolumeUI
 
             if (Application.isPlaying)
             {
-                bool animatePF = interactionMode == InteractionMode.Pointer && isPressed;
-                _animateCoroutine = StartCoroutine(AnimateOnOff(value ? 1f : 0f, animatePF, _prevIsOn == _isOn, _prevIsOn == _isOn ? duration / 2f : 0f));
+                bool animatePf = interactionMode == InteractionMode.Pointer && isPressed;
+                _animateCoroutine = StartCoroutine(AnimateOnOff(value ? 1f : 0f, animatePf, _prevIsOn == _isOn ? duration / 2f : 0f));
             }
             else
             {
@@ -116,7 +116,7 @@ namespace Volorf.VolumeUI
             _toggleGroup = toggleGroup;
         }
         
-        IEnumerator AnimateOnOff(float target, bool animatePressFactor, bool isForcedAnimation = false, float delay = 0f)
+        IEnumerator AnimateOnOff(float target, bool animatePressFactor, float delay = 0f)
         {
             _isOnOffAnimating = true;
             if (delay > 0f)
@@ -134,7 +134,7 @@ namespace Volorf.VolumeUI
                 _currentValue = Mathf.Lerp(capturedValue, target, t);
                 if (animatePressFactor)
                 {
-                    pressFactor = isForcedAnimation ? 1f - _currentValue : Mathf.Sin(Mathf.PI * _currentValue);
+                    pressFactor = Mathf.Sin(Mathf.PI * _currentValue);
                 }
                 SetToggleValue(_currentValue, pressFactor);
                 yield return null;
