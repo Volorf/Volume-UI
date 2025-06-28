@@ -12,6 +12,9 @@ namespace Volorf.VolumeUI
     
     public class VolumeUIBehaviour : MonoBehaviour, IInteractable
     {
+        public event Action OnPressed;
+        public event Action OnReleased;
+        
         public float pressFactor = 0f;
         public InteractionMode interactionMode = InteractionMode.Touch;
         
@@ -60,13 +63,17 @@ namespace Volorf.VolumeUI
         public virtual void Pressed()
         {
             isPressed = true;
+            OnPressed?.Invoke();
         }
 
         public virtual void Released()
         {
             isPressed = false;
+            OnReleased?.Invoke();
         }
+
         
+
         IEnumerator CoolDown()
         {
             _cooledDown = true;
