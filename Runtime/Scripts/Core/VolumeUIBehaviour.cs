@@ -15,14 +15,13 @@ namespace Volorf.VolumeUI
         public event Action OnPressed;
         public event Action OnReleased;
         
-        public float pressFactor = 0f;
-        public InteractionMode interactionMode = InteractionMode.Touch;
+        [HideInInspector] public float pressFactor = 0f;
+        [HideInInspector] public InteractionMode interactionMode = InteractionMode.Touch;
+        [HideInInspector] public Vector3 startTapPosition;
         
-        bool _cooledDown = false;
+        bool _cooledDown;
         float _cooldownTime = 0.25f;
-        protected bool isPressed = false;
-        
-        public Vector3 startTapPosition;
+        protected bool isPressed;
         float _startDot;
 
         void OnTriggerEnter(Collider other)
@@ -71,9 +70,7 @@ namespace Volorf.VolumeUI
             isPressed = false;
             OnReleased?.Invoke();
         }
-
         
-
         IEnumerator CoolDown()
         {
             _cooledDown = true;

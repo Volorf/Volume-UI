@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Volorf.VolumeUI
@@ -5,8 +6,8 @@ namespace Volorf.VolumeUI
     [RequireComponent(typeof(AudioSource))]
     public class UISound : MonoBehaviour
     {
-        [SerializeField] AudioClip _onPressSound;
-        [SerializeField] AudioClip _onReleaseSound;
+        [SerializeField] List<AudioClip> _onPressSounds;
+        [SerializeField] List<AudioClip> _onReleaseSounds;
         [SerializeField] float _volume = 1f;
         
         IInteractable _interactable;
@@ -26,17 +27,23 @@ namespace Volorf.VolumeUI
             _interactable.OnPressed += PlayOnPressSound;
             _interactable.OnReleased += PlayOnReleaseSound;
         }
+        
+        void PlayOnPressSound()
+        {
+            if (_audioSource.isPlaying) return;
+            _audioSource.PlayOneShot(GetRandomClip(_onPressSounds), _volume);
+        }
 
         void PlayOnReleaseSound()
         {
             if (_audioSource.isPlaying) return;
-            _audioSource.PlayOneShot(_onReleaseSound, _volume);
+            _audioSource.PlayOneShot(GetRandomClip(_onReleaseSounds), _volume);
         }
-
-        void PlayOnPressSound()
+        
+        static AudioClip GetRandomClip(List<AudioClip> clips)
         {
-            if (_audioSource.isPlaying) return;
-            _audioSource.PlayOneShot(_onPressSound, _volume);
+            if (clips == null || clips.Count == 0) return null;
+            return clips[Random.Range(0, clips.Count)];
         }
     }
 }

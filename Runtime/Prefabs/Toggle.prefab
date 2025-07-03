@@ -264,3 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b9e66918ba84218873207f7ce67a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onPressSounds: []
+  _onReleaseSounds: []
+  _volume: 1
