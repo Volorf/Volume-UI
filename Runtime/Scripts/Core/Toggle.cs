@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Volorf.VolumeUI
 {
-    // [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(BoxCollider))]
     public class Toggle : VolumeUIBehaviour
     {
         [SerializeField] bool _isOn;
