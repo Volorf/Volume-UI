@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Volorf.VolumeUI
 {
@@ -30,20 +33,32 @@ namespace Volorf.VolumeUI
         
         void PlayOnPressSound()
         {
-            if (_audioSource.isPlaying) return;
-            _audioSource.PlayOneShot(GetRandomClip(_onPressSounds), _volume);
+            StartCoroutine(PlaySound(
+                () => _audioSource.PlayOneShot(GetRandomClip(_onPressSounds), _volume))
+            );
         }
 
         void PlayOnReleaseSound()
         {
-            if (_audioSource.isPlaying) return;
-            _audioSource.PlayOneShot(GetRandomClip(_onReleaseSounds), _volume);
+            StartCoroutine(PlaySound(
+                () => _audioSource.PlayOneShot(GetRandomClip(_onReleaseSounds), _volume))
+            );
         }
         
         static AudioClip GetRandomClip(List<AudioClip> clips)
         {
             if (clips == null || clips.Count == 0) return null;
             return clips[Random.Range(0, clips.Count)];
+        }
+
+        IEnumerator PlaySound(Action action)
+        {
+            while (_audioSource.isPlaying)
+            {
+                yield return null;
+            }
+            
+            action?.Invoke();
         }
     }
 }
