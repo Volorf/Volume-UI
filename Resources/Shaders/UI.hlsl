@@ -43,4 +43,29 @@ void TogglePressedOffset_float(
     Out = pos;
 }
 
+void UpdateButtonColors_float(
+    float Value,
+    float4 VertexColor,
+    float4 BaseColor,
+    float4 DefaultColor,
+    float4 PressedColor,
+    out float4 Out) 
+{
+    float4 ButtonColor = lerp(DefaultColor, PressedColor, Value);
+    Out = VertexColor.x > 0.0 && VertexColor.x < 0.5 ? BaseColor : ButtonColor;
+}
+
+void ButtonPressedOffset_float(
+    float Value,
+    float Depth,
+    float4 Up,
+    float4 VertexColor,
+    out float3 Out)
+{
+    float factor = Value * Depth;
+    float3 upOffset = Up.xyz * factor;
+    float3 pos = VertexColor.z > 0.5 ? -upOffset : 0.0;
+    Out = pos;
+}
+
 #endif
