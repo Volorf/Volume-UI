@@ -1,0 +1,16 @@
+{
+    "name": "Volorf.VolumeUI.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3021ad64415cd44b188fa6bf69d6d885"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
