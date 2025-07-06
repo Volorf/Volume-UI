@@ -1,0 +1,17 @@
+{
+    "name": "Volorf.VolumeUI.Demo",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3021ad64415cd44b188fa6bf69d6d885",
+        "GUID:3cf3a848f267a46558b4a0a0415c0fe1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
