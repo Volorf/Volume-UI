@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,6 +24,7 @@ namespace Volorf.VolumeUI
         
         [Header("Events")]
         public UnityEvent<bool> onValueChanged;
+        public event Action<Toggle> OnToggleChanged;
         
         MaterialPropertyBlock _mpb;
         Coroutine _animateCoroutine;
@@ -57,6 +59,7 @@ namespace Volorf.VolumeUI
             if (!enabled) return;
             Init();
             IsOn = _isOn;
+            _prevIsOn = !_isOn;
         }
         
         void Start()
@@ -69,7 +72,6 @@ namespace Volorf.VolumeUI
         {
             base.Pressed();
             SetState(!_isOn);
-            print(gameObject.name + ", isOS: " + _isOn);
         }
 
         public override void Released()
@@ -99,11 +101,15 @@ namespace Volorf.VolumeUI
             {
                 SetToggleValue(_isOn ? 1f : 0f, 0f);
             }
-                
 
-            if (notify && _prevIsOn != _isOn)
+            // if (notify && _prevIsOn != _isOn)
+            if (notify)
+            {
                 onValueChanged?.Invoke(_isOn);
-
+                OnToggleChanged?.Invoke(this);
+                print(gameObject.name + ", isOS: " + _isOn);
+            }
+            
             if (_toggleGroup != null && processInGroup)
             {
                 _toggleGroup.ProcessToggle(this);
