@@ -188,7 +188,7 @@ PrefabInstance:
     - target: {fileID: 9034940886008544670, guid: 61bedb6d63ec74e2994c538a8a349d1d,
         type: 3}
       propertyPath: orthographic size
-      value: 0.8
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -302,10 +302,10 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.706
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -351,13 +351,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307681505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1464466, y: -0.8535535, z: 0.35355338, w: 0.35355338}
+  m_LocalRotation: {x: 0.102847435, y: -0.89620084, z: 0.32619035, w: 0.28257105}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 45, y: -135, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: -145, z: 0}
 --- !u!114 &1307681508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,6 +457,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 516677193795530049, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.b
+      value: 0.10849059
+      objectReference: {fileID: 0}
+    - target: {fileID: 516677193795530049, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.g
+      value: 0.6588858
+      objectReference: {fileID: 0}
+    - target: {fileID: 516677193795530049, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012267237443185273, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.b
+      value: 0.10849059
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012267237443185273, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.g
+      value: 0.6588858
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012267237443185273, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6133237108123538700, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -510,7 +540,22 @@ PrefabInstance:
     - target: {fileID: 6653917557360278630, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
         type: 3}
       propertyPath: m_Name
-      value: Oracul
+      value: Oracle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476041001774357689, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.b
+      value: 0.10849059
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476041001774357689, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.g
+      value: 0.6588858
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476041001774357689, guid: ca3db2547a98f4ac6bf08620ba6c02d1,
+        type: 3}
+      propertyPath: onColor.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
